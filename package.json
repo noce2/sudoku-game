@@ -1,0 +1,19 @@
+{
+  "name": "sudoku-game",
+  "version": "1.0.0",
+  "description": "A package containing a sudoku generator, sudoku solver and web application for playing.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noce2/sudoku-game.git"
+  },
+  "author": "Nsikan Essien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noce2/sudoku-game/issues"
+  },
+  "homepage": "https://github.com/noce2/sudoku-game#readme"
+}
