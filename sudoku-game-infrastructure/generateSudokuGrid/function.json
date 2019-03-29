@@ -1,5 +1,4 @@
 {
-  "disabled": false,
   "bindings": [
     {
       "authLevel": "anonymous",
@@ -9,12 +8,13 @@
       "methods": [
         "get"
       ],
-      "route": "games/sudoku/grid"
+      "route": "games/nine-nine-sudoku/grid"
     },
     {
       "type": "http",
       "direction": "out",
       "name": "res"
     }
-  ]
+  ],
+  "scriptFile": "..\\dist\\generateSudokuGrid\\index.js"
 }
