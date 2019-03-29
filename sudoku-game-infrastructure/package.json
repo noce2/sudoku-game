@@ -9,11 +9,17 @@
     "start:host": "func start",
     "start": "npm run start:host & npm run watch",
     "build:production": "npm run prestart && npm prune --production",
-    "test": "echo \"No tests yet...\""
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts"
   },
   "dependencies": {},
   "devDependencies": {
     "@azure/functions": "^1.0.1-beta2",
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
+    "ts-node": "^8.0.3",
     "typescript": "^3.3.3"
   }
 }
