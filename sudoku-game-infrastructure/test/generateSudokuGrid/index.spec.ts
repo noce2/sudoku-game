@@ -14,6 +14,9 @@ describe("generateSudokuGrid", () => {
         Promise.resolve(httpTrigger(mockContextObject, {}))
         .then(() => {
             expect(mockContextObject.res).to.be.not.null;
+            expect(mockContextObject.res.body).to.be.not.null;
+            expect(mockContextObject.res.body).to.have.property("grid");
+            return done();
         })
         .catch(err => done(err));
     })
