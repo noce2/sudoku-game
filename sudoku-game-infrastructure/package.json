@@ -3,13 +3,13 @@
   "description": "",
   "version": "0.1.0",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "./node_modules/.bin/tsc",
+    "watch": "./node_modules/.bin/tsc -w",
     "prestart": "npm run build && func extensions install",
     "start:host": "func start",
     "start": "npm run start:host & npm run watch",
     "build:production": "npm run prestart && npm prune --production",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts"
+    "test": "./node_modules/.bin/mocha -r ts-node/register test/**/*.spec.ts"
   },
   "dependencies": {},
   "devDependencies": {
