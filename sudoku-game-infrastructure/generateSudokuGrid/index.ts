@@ -5,7 +5,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     context.res = {
         // status: 200, /* Defaults to 200 */
-        body: { grid: "Hello " + "here is your grid" }
+        body: { grid: ["Hello " + "here is your grid"] }
     };
 
     Promise.resolve(context.done());

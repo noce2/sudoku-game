@@ -16,6 +16,7 @@ describe("generateSudokuGrid", () => {
             expect(mockContextObject.res).to.be.not.null;
             expect(mockContextObject.res.body).to.be.not.null;
             expect(mockContextObject.res.body).to.have.property("grid");
+            expect(mockContextObject.res.body.grid).to.have.be.instanceOf(Array);
             return done();
         })
         .catch(err => done(err));
