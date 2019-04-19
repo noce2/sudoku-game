@@ -1,7 +1,7 @@
 import { SudokuNumber } from "./sudokunumber.enum";
 
 export class Cell {
-    _entry: SudokuNumber;
+    private _entry: SudokuNumber;
 
     get entry():SudokuNumber {
         return this._entry;
