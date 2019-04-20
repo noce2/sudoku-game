@@ -59,4 +59,21 @@ describe("Sudoku Grid", () => {
         expect(testGrid.getCellValue(secondRowPosition,secondColumnPosition))
             .to.eql(secondValue);
     });
+
+    it("should throw an exception if the user tries to set and retrieve colliding values in a row", () => {
+        const testGrid: Grid = new Grid();
+        const firstRowPosition = 1;
+        const firstColumnPosition = 1;
+        const firstValue = 2;
+
+        testGrid.setCellValue(firstRowPosition, firstColumnPosition, firstValue);
+
+        const secondRowPosition = 1;
+        const secondColumnPosition = 6;
+        const secondValue = 2;
+
+        expect(() => testGrid.setCellValue(secondRowPosition, secondColumnPosition,
+            secondValue))
+            .to.throw(/value (.*) already exists/);
+    });
 })

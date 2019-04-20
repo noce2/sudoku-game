@@ -30,14 +30,18 @@ export class Grid {
      * 
      * This method is used to set the cell values in the grid
      * 
-     * @param rowPosition - The row position for the number on the grid
-     * @param columnPosition - The column position for the number on the grid
+     * @param rowPosition - The row position for the number on the grid. Index starts from 1.
+     * @param columnPosition - The column position for the number on the grid. Index starts from 1.
      * @param valueToSet - The number to set the grid cell to
      */
     public setCellValue(rowPosition: number, columnPosition: number, valueToSet: number) {
         if((rowPosition > 0 && rowPosition < 10) && 
         (columnPosition > 0 && columnPosition < 10)) {
-            (this.grid[rowPosition-1][columnPosition-1]).entry = valueToSet;
+            if (!this.checkIfAnyCollisions(rowPosition, columnPosition, valueToSet)) {
+                (this.grid[rowPosition-1][columnPosition-1]).entry = valueToSet;
+            } else {
+                throw new Error("attempting to set a value that already exists")
+            } 
         } else {
             throw new Error("attempting to set a row or column out of bounds")
         }
@@ -48,8 +52,8 @@ export class Grid {
      * 
      * This method is used to get the cell values from the grid
      * 
-     * @param rowPosition - The row position for the number on the grid
-     * @param columnPosition - The column position for the number on the grid
+     * @param rowPosition - The row position for the number on the grid. Index starts from 1.
+     * @param columnPosition - The column position for the number on the grid. Index starts from 1.
      */
     public getCellValue(rowPosition: number, columnPosition: number): SudokuNumber {
         if((rowPosition > 0 && rowPosition < 10) && 
@@ -58,5 +62,40 @@ export class Grid {
         }
 
         throw new Error("attempting to get a row or column out of bounds")
+    }
+
+    /**
+     * Checks if the supplied number exists in the row of its target position
+     * 
+     * @param rowPosition - The row position for the number on the grid. Index starts from 1.
+     * @param valueToSet - The number to set the grid cell to
+     * @returns true indicating the supplied number exists, false otherwise
+     * 
+     */
+    private checkIfNumberExistsInRow(rowPosition: number, valueToSet: number): boolean {
+        const arrayOfDefinedRowMembers = this.grid[rowPosition - 1]
+            .reduce((arrOfMembers, current, index, row) => {
+                if(current.entry) {
+                    return arrOfMembers.concat(current.entry)
+                }
+                return arrOfMembers;
+            }, []);
+
+        const setOfRowIntegers = new Set(arrayOfDefinedRowMembers);
+
+        return setOfRowIntegers.has(valueToSet);
+    }
+
+    /**
+     * Checks if placing the supplied number in its target position cause a collision
+     * in its row, column or sub-grid.
+     * 
+     * @param rowPosition - The row position for the number on the grid. Index starts from 1.
+     * @param columnPosition - The column position for the number on the grid. Index starts from 1.
+     * @param valueToSet - The number to set the grid cell to
+     * @returns true indicating a collision, false otherwise
+     */
+    private checkIfAnyCollisions(rowPosition: number, columnPosition: number, valueToSet: number): boolean {
+        return this.checkIfNumberExistsInRow(rowPosition, valueToSet);
     }
 }
