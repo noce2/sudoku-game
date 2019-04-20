@@ -29,4 +29,13 @@ describe("Sudoku Grid", () => {
         expect(() => testGrid.setCellValue(rowPosition,columnPosition,numberToSet))
             .to.throw(/out of bounds/);
     });
+
+    it("should throw an exception if the user tries to retrieve a value from a nonexistent position", () => {
+        const testGrid: Grid = new Grid();
+        const rowPosition = -1;
+        const columnPosition = -1;
+        
+        expect(() => testGrid.getCellValue(rowPosition,columnPosition))
+            .to.throw(/out of bounds/);
+    });
 })
