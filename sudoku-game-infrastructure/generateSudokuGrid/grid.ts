@@ -30,7 +30,7 @@ export class Grid {
         (columnPosition > 0 && columnPosition < 10)) {
             (this.grid[rowPosition-1][columnPosition-1]).entry = valueToSet;
         } else {
-            throw new Error("attempting to set a row or column of of bounds")
+            throw new Error("attempting to set a row or column out of bounds")
         }
     }
 
@@ -48,6 +48,6 @@ export class Grid {
             return this.grid[rowPosition-1][columnPosition-1].entry;
         }
 
-        throw new Error("attempting to set a row or column of of bounds")
+        throw new Error("attempting to get a row or column out of bounds")
     }
 }
