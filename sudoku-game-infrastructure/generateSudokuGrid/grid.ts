@@ -1,12 +1,18 @@
 import { Cell } from "./cell";
 import { SudokuNumber } from "./sudokunumber.enum";
 
+/** 
+ * Represents a sudoku grid
+ */
 export class Grid {
     readonly noOfRows: number;
     readonly noOfColumns: number;
 
     private grid: Cell[][]
 
+    /**
+     * Creates a 9 x 9 sudoku grid
+     */
     constructor() {
         this.noOfRows = 9;
         this.noOfColumns = 9;
