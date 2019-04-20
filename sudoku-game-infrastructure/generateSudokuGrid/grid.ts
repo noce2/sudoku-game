@@ -5,7 +5,7 @@ export class Grid {
     readonly noOfRows: number;
     readonly noOfColumns: number;
 
-    grid: Cell[][]
+    private grid: Cell[][]
 
     constructor() {
         this.noOfRows = 9;
