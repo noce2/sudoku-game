@@ -15,7 +15,7 @@ describe("Sudoku Grid", () => {
         const numberToSet = 3;
         const rowPosition = 1;
         const columnPosition = 1;
-        testGrid.setCellValue(rowPosition,columnPosition,3);
+        testGrid.setCellValue(rowPosition,columnPosition,numberToSet);
         expect(testGrid.getCellValue(rowPosition, columnPosition))
             .equals(numberToSet);
     });
