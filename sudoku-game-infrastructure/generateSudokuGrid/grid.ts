@@ -18,7 +18,10 @@ export class Grid {
         this.noOfColumns = 9;
         this.grid = new Array(this.noOfRows);
         for(let i = 0; i < this.noOfRows; i++) {
-            this.grid[i] = (new Array(this.noOfColumns)).fill(new Cell());
+            this.grid[i] = (new Array(this.noOfColumns));
+            for(let j = 0; j < this.noOfRows; j++) {
+                this.grid[i][j] = new Cell();
+            }
         }
     }
 

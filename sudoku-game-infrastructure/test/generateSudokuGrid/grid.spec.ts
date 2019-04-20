@@ -38,4 +38,25 @@ describe("Sudoku Grid", () => {
         expect(() => testGrid.getCellValue(rowPosition,columnPosition))
             .to.throw(/out of bounds/);
     });
+
+    it("should correctly set and retrieve non-colliding values in a row", () => {
+        const testGrid: Grid = new Grid();
+        const firstRowPosition = 1;
+        const firstColumnPosition = 1;
+        const firstValue = 2;
+
+        testGrid.setCellValue(firstRowPosition, firstColumnPosition, firstValue);
+
+        const secondRowPosition = 1;
+        const secondColumnPosition = 6;
+        const secondValue = 7;
+
+        testGrid.setCellValue(secondRowPosition, secondColumnPosition, secondValue);
+        
+        expect(testGrid.getCellValue(firstRowPosition,firstColumnPosition))
+            .to.eql(firstValue);
+
+        expect(testGrid.getCellValue(secondRowPosition,secondColumnPosition))
+            .to.eql(secondValue);
+    });
 })
