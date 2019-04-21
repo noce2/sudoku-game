@@ -60,7 +60,7 @@ describe("Sudoku Grid", () => {
             .to.eql(secondValue);
     });
 
-    it("should throw an exception if the user tries to set and retrieve colliding values in a row", () => {
+    it("should throw an exception if the user tries to set colliding values in a row", () => {
         const testGrid: Grid = new Grid();
         const firstRowPosition = 1;
         const firstColumnPosition = 1;
