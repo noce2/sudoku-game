@@ -76,4 +76,42 @@ describe("Sudoku Grid", () => {
             secondValue))
             .to.throw(/value (.*) already exists/);
     });
+
+    it("should correctly set and retrieve non-colliding values in a column", () => {
+        const testGrid: Grid = new Grid();
+        const firstRowPosition = 1;
+        const firstColumnPosition = 6;
+        const firstValue = 2;
+
+        testGrid.setCellValue(firstRowPosition, firstColumnPosition, firstValue);
+
+        const secondRowPosition = 6;
+        const secondColumnPosition = 6;
+        const secondValue = 7;
+
+        testGrid.setCellValue(secondRowPosition, secondColumnPosition, secondValue);
+        
+        expect(testGrid.getCellValue(firstRowPosition,firstColumnPosition))
+            .to.eql(firstValue);
+
+        expect(testGrid.getCellValue(secondRowPosition,secondColumnPosition))
+            .to.eql(secondValue);
+    });
+
+    it("should throw an exception if the user tries to set colliding values in a column", () => {
+        const testGrid: Grid = new Grid();
+        const firstRowPosition = 1;
+        const firstColumnPosition = 1;
+        const firstValue = 2;
+
+        testGrid.setCellValue(firstRowPosition, firstColumnPosition, firstValue);
+
+        const secondRowPosition = 6;
+        const secondColumnPosition = 1;
+        const secondValue = 2;
+
+        expect(() => testGrid.setCellValue(secondRowPosition, secondColumnPosition,
+            secondValue))
+            .to.throw(/value (.*) already exists/);
+    });
 })

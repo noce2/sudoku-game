@@ -87,6 +87,28 @@ export class Grid {
     }
 
     /**
+     * Checks if the supplied number exists in the row of its target position
+     * 
+     * @param columnPosition - The column position for the number on the grid. Index starts from 1.
+     * @param valueToSet - The number to set the grid cell to
+     * @returns true indicating the supplied number exists, false otherwise
+     * 
+     */
+    private checkIfNumberExistsInColumn(columnPosition: number, valueToSet: number): boolean {
+        const arrOfColumnNumbers = this.grid
+            .reduce((arrOfMembers, currentRow, rowIndex, entireGrid) => {
+                if(currentRow[columnPosition-1].entry) {
+                    return arrOfMembers.concat(currentRow[columnPosition -1].entry)
+                }
+                return arrOfMembers;
+            }, []);
+
+        const setOfRowIntegers = new Set(arrOfColumnNumbers);
+
+        return setOfRowIntegers.has(valueToSet);
+    }
+
+    /**
      * Checks if placing the supplied number in its target position cause a collision
      * in its row, column or sub-grid.
      * 
