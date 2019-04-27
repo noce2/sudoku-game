@@ -95,15 +95,15 @@ export class Grid {
      * 
      */
     private checkIfNumberExistsInColumn(columnPosition: number, valueToSet: number): boolean {
-        const arrOfColumnNumbers = this.grid
-            .reduce((arrOfMembers, currentRow, rowIndex, entireGrid) => {
+        const arrOfColumnNumbers: SudokuNumber[] = this.grid
+            .reduce((arrOfMembers: SudokuNumber[], currentRow: Cell[]) => {
                 if(currentRow[columnPosition-1].entry) {
                     return arrOfMembers.concat(currentRow[columnPosition -1].entry)
                 }
                 return arrOfMembers;
             }, []);
 
-        const setOfRowIntegers = new Set(arrOfColumnNumbers);
+        const setOfRowIntegers: Set<SudokuNumber> = new Set(arrOfColumnNumbers);
 
         return setOfRowIntegers.has(valueToSet);
     }
@@ -118,6 +118,7 @@ export class Grid {
      * @returns true indicating a collision, false otherwise
      */
     private checkIfAnyCollisions(rowPosition: number, columnPosition: number, valueToSet: number): boolean {
-        return this.checkIfNumberExistsInRow(rowPosition, valueToSet);
+        return this.checkIfNumberExistsInRow(rowPosition, valueToSet)
+         || this.checkIfNumberExistsInColumn(columnPosition, valueToSet);
     }
 }
