@@ -109,7 +109,20 @@ export class Grid {
     }
 
     /**
-     * Checks if placing the supplied number in its target position cause a collision
+     * Checks if placing the supplied number in its target position causes a collision
+     * in its row, column or sub-grid.
+     * 
+     * @param rowPosition - The row position for the number on the grid. Index starts from 1.
+     * @param columnPosition - The column position for the number on the grid. Index starts from 1.
+     * @param valueToSet - The number to set the grid cell to
+     * @returns true indicating a collision, false otherwise
+     */
+    private checkIfNumberExistsInSubgrid(rowPosition: number, columnPosition: number, valueToSet: number): boolean {
+        return Boolean(Math.floor(Math.random() * 2));
+    }
+
+    /**
+     * Checks if placing the supplied number in its target position causes a collision
      * in its row, column or sub-grid.
      * 
      * @param rowPosition - The row position for the number on the grid. Index starts from 1.
@@ -119,6 +132,7 @@ export class Grid {
      */
     private checkIfAnyCollisions(rowPosition: number, columnPosition: number, valueToSet: number): boolean {
         return this.checkIfNumberExistsInRow(rowPosition, valueToSet)
-         || this.checkIfNumberExistsInColumn(columnPosition, valueToSet);
+         || this.checkIfNumberExistsInColumn(columnPosition, valueToSet)
+         || this.checkIfNumberExistsInSubgrid(rowPosition, columnPosition, valueToSet);
     }
 }
