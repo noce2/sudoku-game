@@ -7,6 +7,7 @@ import { SudokuNumber } from "./sudokunumber.enum";
 export class Grid {
     readonly noOfRows: number;
     readonly noOfColumns: number;
+    readonly subGridSize:number;
 
     private grid: Cell[][]
 
@@ -14,8 +15,8 @@ export class Grid {
      * Creates a 9 x 9 sudoku grid
      */
     constructor() {
-        this.noOfRows = 9;
-        this.noOfColumns = 9;
+        this.noOfRows, this.noOfColumns = 9;
+        this.subGridSize = Math.sqrt(this.noOfRows);
         this.grid = new Array(this.noOfRows);
         for(let i = 0; i < this.noOfRows; i++) {
             this.grid[i] = (new Array(this.noOfColumns));
@@ -118,7 +119,15 @@ export class Grid {
      * @returns true indicating a collision, false otherwise
      */
     private checkIfNumberExistsInSubgrid(rowPosition: number, columnPosition: number, valueToSet: number): boolean {
-        return Boolean(Math.floor(Math.random() * 2));
+        const rowSubgridBoundaryPosition = this.getSubgridBoundary(rowPosition, this.subGridSize);
+        const colSubgridBoundaryPosition = this.getSubgridBoundary(rowPosition, this.subGridSize);
+        let existsInSubgrid = false;
+        for(let i=rowSubgridBoundaryPosition; i < rowSubgridBoundaryPosition+this.subGridSize; i++){
+            for(let j=colSubgridBoundaryPosition; j < colSubgridBoundaryPosition+this.subGridSize; j++){
+                existsInSubgrid = (valueToSet == this.grid[i][j].entry) ?  true : false; 
+            }
+        }
+        return existsInSubgrid;
     }
 
     /**
@@ -134,5 +143,14 @@ export class Grid {
         return this.checkIfNumberExistsInRow(rowPosition, valueToSet)
          || this.checkIfNumberExistsInColumn(columnPosition, valueToSet)
          || this.checkIfNumberExistsInSubgrid(rowPosition, columnPosition, valueToSet);
+    }
+
+    private getSubgridBoundary(chosenNumber: number, subGridSize: number): number {
+        const largestSubgridFilter = 1 + (subGridSize - 1) * subGridSize;
+        let currentFilter = largestSubgridFilter;
+        while(chosenNumber/currentFilter < 1) {
+            currentFilter = currentFilter - subGridSize;
+        }
+        return currentFilter;
     }
 }
