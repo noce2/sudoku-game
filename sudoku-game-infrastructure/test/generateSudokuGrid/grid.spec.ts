@@ -151,5 +151,33 @@ describe("Sudoku Grid", () => {
         expect(() => testGrid.setCellValue(secondRowPosition, secondColumnPosition,
             secondValue))
             .to.throw(/value (.*) already exists/);
+
+        const thirdRowPosition = 6;
+        const thirdColumnPosition = 6;
+        const thirdValue = 2;
+
+        testGrid.setCellValue(thirdRowPosition, thirdColumnPosition, thirdValue);
+
+        const fourthRowPosition = 4;
+        const fourthColumnPosition = 5;
+        const fourthValue = 2;
+
+        expect(() => testGrid.setCellValue(fourthRowPosition, fourthColumnPosition,
+            fourthValue))
+            .to.throw(/value (.*) already exists/);
+
+        const fifthRowPosition = 8;
+        const fifthColumnPosition = 8;
+        const fifthValue = 2;
+
+        testGrid.setCellValue(fifthRowPosition, fifthColumnPosition, fifthValue);
+
+        const sixthRowPosition = 8;
+        const sixthColumnPosition = 9;
+        const sixthValue = 2;
+
+        expect(() => testGrid.setCellValue(sixthRowPosition, sixthColumnPosition,
+            sixthValue))
+            .to.throw(/value (.*) already exists/);
     });
 })
