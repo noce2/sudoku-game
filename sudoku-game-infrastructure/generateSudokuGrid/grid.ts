@@ -112,7 +112,7 @@ export class Grid {
 
     /**
      * Checks if placing the supplied number in its target position causes a collision
-     * in its row, column or sub-grid.
+     * in sub-grid.
      * 
      * @param rowPosition - The row position for the number on the grid. Index starts from 1.
      * @param columnPosition - The column position for the number on the grid. Index starts from 1.
@@ -122,13 +122,15 @@ export class Grid {
     private checkIfNumberExistsInSubgrid(rowPosition: number, columnPosition: number, valueToSet: number): boolean {
         const rowSubgridBoundaryPosition = this.getSubgridBoundary(rowPosition, this.subGridSize);
         const colSubgridBoundaryPosition = this.getSubgridBoundary(rowPosition, this.subGridSize);
-        let existsInSubgrid = false;
+
         for(let i=rowSubgridBoundaryPosition; i < rowSubgridBoundaryPosition+this.subGridSize; i++){
             for(let j=colSubgridBoundaryPosition; j < colSubgridBoundaryPosition+this.subGridSize; j++){
-                existsInSubgrid = (valueToSet == this.grid[i][j].entry) ?  true : false; 
+                const existsInSubgrid = (valueToSet == this.getCellValue(i, j)) ?  true : false; 
+                if(existsInSubgrid) return existsInSubgrid;
             }
         }
-        return existsInSubgrid;
+        
+        return false;
     }
 
     /**
