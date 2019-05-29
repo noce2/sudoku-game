@@ -1,7 +1,6 @@
 import { expect } from "chai"
 
 import { Grid } from "../../generateSudokuGrid/grid";
-import { test } from "mocha";
 
 describe("Sudoku Grid", () => {
     it("should be initialised with 9 rows and 9 columns", () => {
