@@ -15,7 +15,8 @@ export class Grid {
      * Creates a 9 x 9 sudoku grid
      */
     constructor() {
-        this.noOfRows, this.noOfColumns = 9;
+        this.noOfRows = 9;
+        this.noOfColumns = 9;
         this.subGridSize = Math.sqrt(this.noOfRows);
         this.grid = new Array(this.noOfRows);
         for(let i = 0; i < this.noOfRows; i++) {
