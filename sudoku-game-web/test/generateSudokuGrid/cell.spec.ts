@@ -21,5 +21,11 @@ describe("Cell", () => {
         expect(() => {testCell.entry = 0}).to.throw(/invalid sudoku number/);
         expect(() => {testCell.entry = -1}).to.throw(/invalid sudoku number/);
         expect(() => {testCell.entry = 2.2}).to.throw(/invalid sudoku number/);
+    });
+
+    it("should initialise a blank cell with a set of all possible sudoku numbers", () => {
+        const testCell: Cell = new Cell();
+        const expectedSet = new Set([1,2,3,4,5,6,7,8,9]);
+        expect(testCell.possibleEntries).to.deep.equal(expectedSet);
     })
 })
