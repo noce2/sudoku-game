@@ -15,10 +15,4 @@ export class Cell {
             throw new Error("invalid sudoku number");
         }
     }
-
-    private _possibleEntries: Set<SudokuNumber>;
-
-    get possibleEntries(): Set<SudokuNumber> {
-        return this._possibleEntries;
-    }
 }
