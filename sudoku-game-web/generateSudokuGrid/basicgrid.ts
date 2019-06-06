@@ -4,7 +4,7 @@ import { SudokuNumber } from "./sudokunumber.enum";
 /** 
  * Represents a sudoku grid
  */
-export class Grid {
+export class BasicGrid {
     readonly noOfRows: number;
     readonly noOfColumns: number;
     readonly subGridSize:number;
