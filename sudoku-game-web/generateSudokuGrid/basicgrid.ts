@@ -133,13 +133,14 @@ export class BasicGrid {
      * @param rowPosition - The row position for the number on the grid. Index starts from 1.
      * @param columnPosition - The column position for the number on the grid. Index starts from 1.
      * @param valueToSet - The number to set the grid cell to
-     * @returns true indicating a collision, false otherwise
+     * @returns false indicating a collision, true otherwise
      */
     public checkIfAnyCollisions(cell: Cell, valueToSet: number) {
         return this.checkIfNumberCabBePutInRow(cell.row, valueToSet) && this.checkIfNumberCabBePutInColumn(cell.column, valueToSet)
             && this.checkIfNumberCabBePutInBlock(cell.block, valueToSet)
     }
 
+  
     public isCompleteRow(rowPosition: number) {
         var expected = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9);
         var rowTemp = new Array();
@@ -173,7 +174,7 @@ export class BasicGrid {
 
         return blockTemp.join() == expected.join();
     }
-
+//checks if the grid is actually solved
     public isCompleteGrid() {
         for (var i = 1; i <= 9; i++) {
             if (!(this.isCompleteRow(i) && this.isCompleteColumn(i) && this.isCompleteBlock(i))) {
@@ -183,7 +184,7 @@ export class BasicGrid {
         }
         return true;
     }
-
+// given a cell returns an array of possible entries to that cell
     public determinePossibleValues(cell: Cell) {
         var possible = new Array();
         for (var i = 1; i <= 9; i++) {
@@ -193,11 +194,13 @@ export class BasicGrid {
         }
         return possible;
     }
-    // possible is an array
+    // given a cell, returns a random possible value for tht cell
     public determineRandomPossibleValue(cell: Cell) {
         var randomPicked = Math.floor(Math.random() * this.determinePossibleValues(cell).length);
         return this.determinePossibleValues(cell)[randomPicked];
     }
+  
+  //given a grid, returns a 2d array of possible entries for every cell in the grid
     scanGridForUnique() {
         var possible = [];
         for (var i = 0; i <= 8; i++) {
@@ -226,7 +229,7 @@ export class BasicGrid {
         return newArray;
     }
 
-    // given a two dimension array of possible values, returns the index of a cell where there are the less possible numbers to choose from
+    // given a two dimension array of possible values, returns the numberof a cell where there are the least possible numbers to choose from
     public nextRandom(possible: [][]) {
         var max = 9;
         var minChoices = 0;
@@ -240,6 +243,8 @@ export class BasicGrid {
         }
         return minChoices;
     }
+  //given a grid, solves it and prints the number of iterations needed to the console. 
+  //There is a lot of duplicate code, a method to update grid is needed and would make this function 20 lines shorter.
     public solveGrid() {
         var sudoku = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         var saved = new Array();
