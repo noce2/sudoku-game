@@ -1,4 +1,5 @@
 export enum SudokuNumber {
+  //zero was added as a way to represent a blank spot on the grid to avoid working with nulls
     Zero=0,
     One = 1,
     Two = 2,
