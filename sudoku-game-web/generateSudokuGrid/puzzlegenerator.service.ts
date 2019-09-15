@@ -3,7 +3,8 @@ import { BasicGrid } from "./basicgrid";
 // TODO: Add a singleton decorator to ensure only one of this exists
 export class PuzzleGeneratorService {
     public getRandomindices() {
-        var randArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        var randArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+            10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
             20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
             30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
             40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
@@ -12,6 +13,9 @@ export class PuzzleGeneratorService {
             70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
             80];
         var array = new Array();
+      
+      //Arbitrarily gets unique numbers from 0-80 into an array. in the future will want to add functionality to guarantee the number of blank spots 
+      //in the puzzle
         for (var i = 0; i < 35; i++) {
             var randomPicked = Math.floor(Math.random() * randArr.length);
             if (!array.includes(randomPicked)) {
@@ -20,8 +24,11 @@ export class PuzzleGeneratorService {
         }
         return array;
     }
+  //This function returns a grid object containing a 2d array of cell objects with up to 35 cell entry attributes of zero(representing blank spaces on the puzzle)
     public getEasyPuzzle() {
+      //use better variable names here. 
         var x = new BasicGrid();
+      
         x.solveGrid();
         var array: number[] = this.getRandomindices();
 
