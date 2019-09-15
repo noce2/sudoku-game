@@ -1,146 +1,126 @@
-import { Cell } from "./cell";
-import { SudokuNumber } from "./sudokunumber.enum";
-
-/** 
+"use strict";
+exports.__esModule = true;
+var cell_1 = require("./cell");
+/**
  * Represents a sudoku grid
  */
-export class BasicGrid {
-    readonly noOfRows: number;
-    readonly noOfColumns: number;
-    readonly subGridSize: number;
-
-     grid: Cell[][]
-
+var BasicGrid = /** @class */ (function () {
     /**
-     * Creates a 9 x 9 empty sudoku grid 
+     * Creates a 9 x 9 empty sudoku grid
      */
-    constructor() {
+    function BasicGrid() {
         this.noOfRows = 9;
         this.noOfColumns = 9;
         this.subGridSize = Math.sqrt(this.noOfRows);
         this.grid = new Array(this.noOfRows);
-        for (let i = 0; i < this.noOfRows; i++) {
+        for (var i = 0; i < this.noOfRows; i++) {
             this.grid[i] = (new Array(this.noOfColumns));
-            for (let j = 0; j < this.noOfRows; j++) {
-                this.grid[i][j] = new Cell();
+            for (var j = 0; j < this.noOfRows; j++) {
+                this.grid[i][j] = new cell_1.Cell();
                 this.grid[i][j].entry = 0;
                 this.grid[i][j].row = i + 1;
                 this.grid[i][j].column = j + 1;
                 this.grid[i][j].block = (Math.floor(i / 3) * 3 + Math.floor(j / 3)) + 1;
-                this.grid[i][j]._number = (j ) + i * 9;
-
+                this.grid[i][j]._number = (j) + i * 9;
             }
         }
-
     }
-
     /**
      * setCellValue
-     * 
+     *
      * This method is used to set the cell values in the grid
-     * 
+     *
      * @param rowPosition - The row position for the number on the grid. Index starts from 1.
      * @param columnPosition - The column position for the number on the grid. Index starts from 1.
      * @param valueToSet - The number to set the grid cell to
      */
-
-
     /**
      * getCellValue
-     * 
+     *
      * This method is used to get the cell values from the grid
-     * 
+     *
      * @param rowPosition - The row position for the number on the grid. Index starts from 1.
      * @param columnPosition - The column position for the number on the grid. Index starts from 1.
      */
-    public getCellValue(rowPosition: number, columnPosition: number): SudokuNumber {
+    BasicGrid.prototype.getCellValue = function (rowPosition, columnPosition) {
         if ((rowPosition > 0 && rowPosition < 10) &&
             (columnPosition > 0 && columnPosition < 10)) {
             return this.grid[rowPosition - 1][columnPosition - 1].entry;
         }
-
-        throw new Error("attempting to get a row or column out of bounds")
-    }
-    public getCellBlock(rowPosition: number, columnPosition: number): SudokuNumber {
+        throw new Error("attempting to get a row or column out of bounds");
+    };
+    BasicGrid.prototype.getCellBlock = function (rowPosition, columnPosition) {
         if ((rowPosition > 0 && rowPosition < 10) &&
             (columnPosition > 0 && columnPosition < 10)) {
             return this.grid[rowPosition - 1][columnPosition - 1].block;
         }
-
-        throw new Error("attempting to get a row or column out of bounds")
-    }
-
+        throw new Error("attempting to get a row or column out of bounds");
+    };
     /**
      * Checks if the supplied number exists in the row of its target position
-     * 
+     *
      * @param rowPosition - The row position for the number on the grid. Index starts from 1.
      * @param valueToSet - The number to set the grid cell to
      * @returns true indicating the supplied number exists, false otherwise
-     * 
+     *
      */
-    public checkIfNumberCabBePutInRow(rowPosition: number, valueToSet: number): boolean {
+    BasicGrid.prototype.checkIfNumberCabBePutInRow = function (rowPosition, valueToSet) {
         for (var i = 0; i <= 8; i++) {
             if (this.grid[rowPosition - 1][i].entry == valueToSet) {
                 return false;
             }
         }
         return true;
-    }
-
-
+    };
     /**
      * Checks if the supplied number exists in the row of its target position
-     * 
+     *
      * @param columnPosition - The column position for the number on the grid. Index starts from 1.
      * @param valueToSet - The number to set the grid cell to
      * @returns true indicating the supplied number exists, false otherwise
-     * 
+     *
      */
-    public checkIfNumberCabBePutInColumn(columnPosition: number, valueToSet: number): boolean {
+    BasicGrid.prototype.checkIfNumberCabBePutInColumn = function (columnPosition, valueToSet) {
         for (var i = 0; i <= 8; i++) {
             if (this.grid[i][columnPosition - 1].entry == valueToSet) {
                 return false;
             }
         }
         return true;
-    }
-
+    };
     /**
      * Checks if placing the supplied number in its target position causes a collision
      * in sub-grid.
-     * 
+     *
      * @param rowPosition - The row position for the number on the grid. Index starts from 1.
      * @param columnPosition - The column position for the number on the grid. Index starts from 1.
      * @param valueToSet - The number to set the grid cell to
      * @returns true indicating a collision, false otherwise
      */
-    public checkIfNumberCabBePutInBlock(blockPosition: number, valueToSet: number): boolean {
+    BasicGrid.prototype.checkIfNumberCabBePutInBlock = function (blockPosition, valueToSet) {
         for (var i = 0; i <= 8; i++) {
             for (var j = 0; j <= 8; j++) {
                 if (this.grid[i][j].block == blockPosition && this.grid[i][j].entry == valueToSet) {
                     return false;
                 }
-
             }
         }
         return true;
-    }
-
+    };
     /**
      * Checks if placing the supplied number in its target position causes a collision
      * in its row, column or sub-grid.
-     * 
+     *
      * @param rowPosition - The row position for the number on the grid. Index starts from 1.
      * @param columnPosition - The column position for the number on the grid. Index starts from 1.
      * @param valueToSet - The number to set the grid cell to
      * @returns true indicating a collision, false otherwise
      */
-    public checkIfAnyCollisions(cell: Cell, valueToSet: number) {
+    BasicGrid.prototype.checkIfAnyCollisions = function (cell, valueToSet) {
         return this.checkIfNumberCabBePutInRow(cell.row, valueToSet) && this.checkIfNumberCabBePutInColumn(cell.column, valueToSet)
-            && this.checkIfNumberCabBePutInBlock(cell.block, valueToSet)
-    }
-
-    public isCompleteRow(rowPosition: number) {
+            && this.checkIfNumberCabBePutInBlock(cell.block, valueToSet);
+    };
+    BasicGrid.prototype.isCompleteRow = function (rowPosition) {
         var expected = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9);
         var rowTemp = new Array();
         for (var i = 0; i <= 8; i++) {
@@ -148,8 +128,8 @@ export class BasicGrid {
         }
         rowTemp.sort();
         return rowTemp.join() == expected.join();
-    }
-    public isCompleteColumn(columnPosition: number) {
+    };
+    BasicGrid.prototype.isCompleteColumn = function (columnPosition) {
         var expected = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9);
         var colTemp = new Array();
         for (var i = 0; i <= 8; i++) {
@@ -157,34 +137,29 @@ export class BasicGrid {
         }
         colTemp.sort();
         return colTemp.join() == expected.join();
-    }
-    public isCompleteBlock(blockPosition: number) {
+    };
+    BasicGrid.prototype.isCompleteBlock = function (blockPosition) {
         var expected = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9);
         var blockTemp = new Array();
         for (var i = 0; i <= 8; i++) {
             for (var j = 0; j <= 8; j++) {
                 if (this.grid[i][j].block == blockPosition) {
-                    blockTemp.push( this.grid[i][j].entry);
+                    blockTemp.push(this.grid[i][j].entry);
                 }
-
             }
         }
         blockTemp.sort();
-
         return blockTemp.join() == expected.join();
-    }
-
-    public isCompleteGrid() {
+    };
+    BasicGrid.prototype.isCompleteGrid = function () {
         for (var i = 1; i <= 9; i++) {
             if (!(this.isCompleteRow(i) && this.isCompleteColumn(i) && this.isCompleteBlock(i))) {
                 return false;
             }
-
         }
         return true;
-    }
-
-    public determinePossibleValues(cell: Cell) {
+    };
+    BasicGrid.prototype.determinePossibleValues = function (cell) {
         var possible = new Array();
         for (var i = 1; i <= 9; i++) {
             if (this.checkIfAnyCollisions(cell, i)) {
@@ -192,31 +167,29 @@ export class BasicGrid {
             }
         }
         return possible;
-    }
+    };
     // possible is an array
-    public determineRandomPossibleValue(cell: Cell) {
+    BasicGrid.prototype.determineRandomPossibleValue = function (cell) {
         var randomPicked = Math.floor(Math.random() * this.determinePossibleValues(cell).length);
         return this.determinePossibleValues(cell)[randomPicked];
-    }
-    scanGridForUnique() {
+    };
+    BasicGrid.prototype.scanGridForUnique = function () {
         var possible = [];
         for (var i = 0; i <= 8; i++) {
             for (var j = 0; j <= 8; j++) {
                 if (this.grid[i][j].entry == 0) {
                     possible[this.grid[i][j]._number] = new Array();
-                    possible[this.grid[i][j]._number ] = this.determinePossibleValues(this.grid[i][j]);
+                    possible[this.grid[i][j]._number] = this.determinePossibleValues(this.grid[i][j]);
                     if (possible[this.grid[i][j]._number].length == 0) {
                         return false;
                     }
                 }
             }
-
         }
         return possible;
-    }
-
+    };
     // given an array and a number, removes the number from the array
-    public removeAttempt(attemptArray: [], number: number) {
+    BasicGrid.prototype.removeAttempt = function (attemptArray, number) {
         var newArray = new Array();
         for (var i = 0; i < attemptArray.length; i++) {
             if (attemptArray[i] != number) {
@@ -224,10 +197,9 @@ export class BasicGrid {
             }
         }
         return newArray;
-    }
-
+    };
     // given a two dimension array of possible values, returns the index of a cell where there are the less possible numbers to choose from
-    public nextRandom(possible: [][]) {
+    BasicGrid.prototype.nextRandom = function (possible) {
         var max = 9;
         var minChoices = 0;
         for (var i = 0; i <= 80; i++) {
@@ -239,8 +211,8 @@ export class BasicGrid {
             }
         }
         return minChoices;
-    }
-    public solveGrid() {
+    };
+    BasicGrid.prototype.solveGrid = function () {
         var sudoku = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         var saved = new Array();
         var savedSudoku = new Array();
@@ -262,7 +234,6 @@ export class BasicGrid {
                 for (var i = 0; i < 9; i++) {
                     for (var j = 0; j < 9; j++) {
                         this.grid[i][j].entry = sudoku[(j) + i * 9];
-                        
                     }
                 }
             }
@@ -275,33 +246,26 @@ export class BasicGrid {
                 for (var k = 0; k < 9; k++) {
                     for (var l = 0; l < 9; l++) {
                         this.grid[k][l].entry = sudoku[(l) + k * 9];
-
                     }
                 }
-
             }
             for (var k = 0; k < 9; k++) {
                 for (var l = 0; l < 9; l++) {
                     this.grid[k][l].entry = sudoku[(l) + k * 9];
-
                 }
             }
-
             sudoku[whatToTry] = attempt;
             for (var k = 0; k < 9; k++) {
                 for (var l = 0; l < 9; l++) {
                     this.grid[k][l].entry = sudoku[(l) + k * 9];
-                    if(x>120){
+                    if (x > 120) {
                         return false;
                     }
-
                 }
             }
-            
         }
-
-        console.log("\n\nSolved in "+x+" steps");
-    }
-}
-
-
+        console.log("\n\nSolved in " + x + " steps");
+    };
+    return BasicGrid;
+}());
+exports.BasicGrid = BasicGrid;
