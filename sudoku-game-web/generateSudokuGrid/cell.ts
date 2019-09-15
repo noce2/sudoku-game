@@ -5,7 +5,10 @@ export class Cell {
     private _row: SudokuNumber;
     private _column: SudokuNumber;
     private _block: SudokuNumber;
-    public _number: number;
+  
+  //This represents the cell number as if the grid represented a 1d array of cells. This was needed to avoid using 3d arrays in certain functions
+  //make this private like the rest.  
+  public _number: number;
 
     get entry(): SudokuNumber {
         return this._entry;
